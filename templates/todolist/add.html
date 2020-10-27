@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<form action="{% url 'add_todo' %}" method="POST">
+{% csrf_token %}
+  <div class="form-group">
+    <label for="todo_text">Todo text</label>
+    <input class="form-control" type="text" id="todo_text" name="todo_text">
+  </div>
+  <input type="submit" value="Submit" class="btn btn-primary">
+</form>
+
+{% endblock %}

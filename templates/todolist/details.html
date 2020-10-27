@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<a href="{% url 'index' %}">
+  <div class="btn btn-dark mb-3">Go back</div>
+</a>
+
+{% if todo %}
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-title">{{ todo.todo_text }}</h5>
+      <p class="card-text">{{ todo.pub_date }}</p>
+    </div>
+  </div>
+{% else %}
+  <p>There is no todo with this id</p>
+{% endif %}
+
+{% endblock %}

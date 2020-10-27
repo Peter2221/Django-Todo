@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<a href="{% url 'add_todo' %}">
+  <div class="btn btn-secondary mb-3">
+    Add new todo
+  </div>
+</a>
+{% if todo_items_list %}
+  <ul class="list-group">
+  {% for todo in todo_items_list %}
+    <li class="list-group-item">
+      <h5 class="h5">{{ todo.todo_text }}</h5>
+      <p>{{ todo.pub_date }}</p>
+      <a href="{% url 'show_todo' todo.id %}">
+        <div class="btn btn-primary btn-sm">Details</div>
+      </a>
+    </li>
+  {% endfor %}
+  </ul>
+{% else %}
+  <p>No todos available</p>
+{% endif %}
+
+{% endblock %}
