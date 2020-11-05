@@ -4,7 +4,7 @@ from . import views
 app_name = 'todolist'
 urlpatterns = [
   # /todos/
-  path('', views.index, name="index"),
+  path('', views.IndexView.as_view(), name="index"),
   # /todos/1/
   path('<int:todo_id>/', views.show_todo, name='show_todo'),
   # /todos/add/

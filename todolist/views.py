@@ -2,15 +2,16 @@ from django.shortcuts import redirect, render
 from django.http import HttpResponse, Http404
 from django.template import loader
 from django.utils import timezone
+from django.views import generic
 
 from .models import TodoItem
 
-def index(request):
-    try:
-        todo_items_list = TodoItem.objects.order_by('-pub_date')
-    except TodoItem.DoesNotExist:
-        raise Http404("Todo does not exist")
-    return render(request, 'todolist/index.html', {'todo_items_list' : todo_items_list})
+class IndexView(generic.ListView):
+    template_name = 'todolist/index.html'
+    context_object_name = 'todo_items_list'
+
+    def get_queryset(self):
+        return TodoItem.objects.order_by('-pub_date')
 
 def add_todo(request):
     if(request.method == 'POST'):
