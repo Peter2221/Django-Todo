@@ -16,13 +16,20 @@ class IndexView(generic.ListView):
 def add_todo(request):
     if(request.method == 'POST'):
         todo_text = request.POST['todo_text']
-        date = timezone.now()
+        date = request.POST['todo_date']
         todo = TodoItem(todo_text=todo_text, pub_date=date)
         todo.save()
 
         return redirect('/todos')
     else:
         return render(request, 'todolist/add.html')
+
+def delete_todo(request, todo_id):
+    try:
+        TodoItem.objects.filter(id=todo_id).delete()
+    except TodoItem.DoesNotExist:
+        raise Http404("Todo does not exist")
+    return redirect('/todos')
 
 def show_todo(request, todo_id):
     try:

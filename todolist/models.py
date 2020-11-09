@@ -1,4 +1,6 @@
 from django.db import models
+from django.utils import timezone
+import datetime
 
 # Create your models here.
 class TodoItem(models.Model):
@@ -6,5 +8,9 @@ class TodoItem(models.Model):
   todo_status = models.BooleanField(default=False)
   pub_date = models.DateTimeField('date published')
 
+  def was_published_recently(self):
+    now = timezone.now()
+    return now - datetime.timedelta(days=1) <= self.pub_date <= now
+
   def __str__(self):
-    return f"text: {self.todo_text}, done: {self.todo_status}, date: {self.pub_date}"
+    return f"{self.todo_text}"
